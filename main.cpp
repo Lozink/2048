@@ -23,14 +23,23 @@ int main() {
                 game.moveLeft();
                 break;
             case 101:
+                std::cout << "Quitting game." << std::endl;
                 gameFinished = true;
+                break;
         }
 
-        if (game.isFinished()) {
+        if (game.isWon()) {
+            std::cout << "Game won !" << std::endl;
             gameFinished = true;
-        } else {
+        } else if (!gameFinished && game.getMoveMade()) {
             game.createRandomTile();
             game.printBoard();
+            if (game.isBoardFull()) {
+                if (game.isLost()) {
+                    std::cout << "Game is lost." << std::endl;
+                    gameFinished = true;
+                }
+            }
         }
     }
 

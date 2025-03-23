@@ -40,7 +40,12 @@ void Game::createRandomTile() {
     }
 }
 
+bool Game::getMoveMade() {
+    return mMoveMade;
+}
+
 void Game::moveUp() {
+    mMoveMade = false;
     for (int j = 0; j < mSize; j++) {
         for (int i = 1; i < mSize; i++) {
             if (mBoard[i][j] != 0) {
@@ -49,6 +54,7 @@ void Game::moveUp() {
                     mBoard[currentPlace-1][j] = mBoard[currentPlace][j];
                     mBoard[currentPlace][j] = 0;
                     currentPlace -= 1;
+                    mMoveMade = true;
                     if (currentPlace == 0) {
                         break;
                     }
@@ -57,6 +63,7 @@ void Game::moveUp() {
                     if (mBoard[currentPlace-1][j] == mBoard[currentPlace][j]) {
                         mBoard[currentPlace-1][j] *= 2;
                         mBoard[currentPlace][j] = 0;
+                        mMoveMade = true;
                     }
                 }
             }
@@ -65,6 +72,7 @@ void Game::moveUp() {
 }
 
 void Game::moveDown() {
+    mMoveMade = false;
     for (int j = 0; j < mSize; j++) {
         for (int i = mSize - 2; i >= 0; i--) {
             if (mBoard[i][j] != 0) {
@@ -73,6 +81,7 @@ void Game::moveDown() {
                     mBoard[currentPlace+1][j] = mBoard[currentPlace][j];
                     mBoard[currentPlace][j] = 0;
                     currentPlace += 1;
+                    mMoveMade = true;
                     if (currentPlace == mSize - 1) {
                         break;
                     }
@@ -81,6 +90,7 @@ void Game::moveDown() {
                     if (mBoard[currentPlace+1][j] == mBoard[currentPlace][j]) {
                         mBoard[currentPlace+1][j] *= 2;
                         mBoard[currentPlace][j] = 0;
+                        mMoveMade = true;
                     }
                 }
             }
@@ -89,6 +99,7 @@ void Game::moveDown() {
 }
 
 void Game::moveLeft() {
+    mMoveMade = false;
     for (int i = 0; i < mSize; i++) {
         for (int j = 1; j < mSize; j++) {
             if (mBoard[i][j] != 0) {
@@ -97,6 +108,7 @@ void Game::moveLeft() {
                     mBoard[i][currentPlace-1] = mBoard[i][currentPlace];
                     mBoard[i][currentPlace] = 0;
                     currentPlace -= 1;
+                    mMoveMade = true;
                     if (currentPlace == 0) {
                         break;
                     }
@@ -105,6 +117,7 @@ void Game::moveLeft() {
                     if (mBoard[i][currentPlace-1] == mBoard[i][currentPlace]) {
                         mBoard[i][currentPlace-1] *= 2;
                         mBoard[i][currentPlace] = 0;
+                        mMoveMade = true;
                     }
                 }
             }
@@ -113,6 +126,7 @@ void Game::moveLeft() {
 }
 
 void Game::moveRight() {
+    mMoveMade = false;
     for (int i = 0; i < mSize; i++) {
         for (int j = mSize - 2; j >= 0; j--) {
             if (mBoard[i][j] != 0) {
@@ -121,6 +135,7 @@ void Game::moveRight() {
                     mBoard[i][currentPlace+1] = mBoard[i][currentPlace];
                     mBoard[i][currentPlace] = 0;
                     currentPlace += 1;
+                    mMoveMade = true;
                     if (currentPlace == mSize - 1) {
                         break;
                     }
@@ -129,6 +144,7 @@ void Game::moveRight() {
                     if (mBoard[i][currentPlace+1] == mBoard[i][currentPlace]) {
                         mBoard[i][currentPlace+1] *= 2;
                         mBoard[i][currentPlace] = 0;
+                        mMoveMade = true;
                     }
                 }
             }
@@ -148,7 +164,18 @@ void Game::printBoard() {
     }
 }
 
-bool Game::isFinished() {
+bool Game::isWon() {
+    for (int i = 0; i < mSize; i++) {
+        for (int j = 0; j < mSize; j++) {
+            if (mBoard[i][j] == 2048) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool Game::isBoardFull() {
     for (int i = 0; i < mSize; i++) {
         for (int j = 0; j < mSize; j++) {
             if (mBoard[i][j] == 0) {
@@ -156,5 +183,25 @@ bool Game::isFinished() {
             }
         }
     }
+    return true;
+}
+
+bool Game::isLost() {
+    for (int i = 0; i < mSize; i++) {
+        for (int j = 0; j < mSize - 1; j++) {
+            if (mBoard[i][j] == mBoard[i][j+1]) {
+                return false;
+            }
+        }
+    }
+
+    for (int j = 0; j < mSize; j++) {
+        for (int i = 0; i < mSize - 1; i++) {
+            if (mBoard[i][j] == mBoard[i+1][j]) {
+                return false;
+            }
+        }
+    }
+
     return true;
 }
