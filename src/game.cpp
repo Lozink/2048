@@ -6,8 +6,17 @@ Game::Game() {
     initializeBoard();
 }
 
-void Game::initializeBoard() {
+Game::~Game() {
     for (int i = 0; i < mSize; i++) {
+        delete []mBoard[i];
+    }
+    delete []mBoard;
+}
+
+void Game::initializeBoard() {
+    mBoard = new int*[4];
+    for (int i = 0; i < mSize; i++) {
+        mBoard[i] = new int[4];
         for (int j = 0; j < mSize; j++) {
             mBoard[i][j] = 0;
         }

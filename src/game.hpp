@@ -4,10 +4,11 @@
 class Game {
     private:
         int mSize = 4;
-        int mBoard[4][4];
+        int** mBoard;
 
     public:
         Game();
+        ~Game();
         void initializeBoard();
         void createRandomTile();
         void printBoard();
