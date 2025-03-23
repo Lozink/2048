@@ -40,6 +40,30 @@ void Game::createRandomTile() {
     }
 }
 
+void Game::moveLeft() {
+    for (int i = 0; i < mSize; i++) {
+        for (int j = 1; j < mSize; j++) {
+            if (mBoard[i][j] != 0) {
+                int currentPlace = j;
+                while (mBoard[i][currentPlace-1] == 0) {
+                    mBoard[i][currentPlace-1] = mBoard[i][currentPlace];
+                    mBoard[i][currentPlace] = 0;
+                    currentPlace -= 1;
+                    if (currentPlace == 0) {
+                        break;
+                    }
+                }
+                if (currentPlace > 0) {
+                    if (mBoard[i][currentPlace-1] == mBoard[i][currentPlace]) {
+                        mBoard[i][currentPlace-1] *= 2;
+                        mBoard[i][currentPlace] = 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
 void Game::printBoard() {
     std::cout << "_________________" << std::endl;
     for (int i = 0; i < mSize; i++) {

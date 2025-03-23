@@ -11,6 +11,9 @@ class Game {
         ~Game();
         void initializeBoard();
         void createRandomTile();
+
+        void moveLeft();
+
         void printBoard();
         bool isFinished();
 };
