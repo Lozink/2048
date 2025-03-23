@@ -9,7 +9,9 @@ class Game {
     public:
         Game();
         void initializeBoard();
+        void createRandomTile();
         void printBoard();
+        bool isFinished();
 };
 
 #endif
