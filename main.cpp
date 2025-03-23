@@ -1,11 +1,5 @@
 #include <iostream>
-
-class Game {
-    public:
-        Game() {
-            std::cout << "hello" << std::endl;
-        }
-};
+#include "src/Game.hpp"
 
 int main() {
     Game game;
