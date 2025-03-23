@@ -12,7 +12,10 @@ class Game {
         void initializeBoard();
         void createRandomTile();
 
+        void moveUp();
+        void moveDown();
         void moveLeft();
+        void moveRight();
 
         void printBoard();
         bool isFinished();

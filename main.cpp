@@ -11,10 +11,13 @@ int main() {
     while (!gameFinished) {
         switch (_getch()) {
             case 122:    // key up
+                game.moveUp();
                 break;
             case 115:    // key down
+                game.moveDown();
                 break;
             case 100:    // key right
+                game.moveRight();
                 break;
             case 113:    // key left
                 game.moveLeft();
@@ -25,11 +28,10 @@ int main() {
 
         if (game.isFinished()) {
             gameFinished = true;
+        } else {
+            game.createRandomTile();
+            game.printBoard();
         }
-        
-        game.createRandomTile();
-        game.printBoard();
-
     }
 
     return 0;
